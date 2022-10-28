@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int triangleNumber(vector<int>& arr) {
+        sort(arr.begin(),arr.end());
+        
+        int ans =0 , n = arr.size();
+        
+        for(int i = 0;i<n-2;i++)
+        {
+            if(arr[i] == 0) continue;
+            int sum = 0;
+            for(int j = i+1;j<n-1;j++)
+            {
+                sum = arr[i] + arr[j];
+                auto it = lower_bound(arr.begin()+j,arr.end() , sum);
+                
+                ans += it - (arr.begin()+j+1);
+            }
+        }
+        
+        return ans;
+        
+    }
+};
