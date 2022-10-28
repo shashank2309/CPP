@@ -1,0 +1,66 @@
+class Solution {
+public:
+    vector<string> create(string& st, int len)
+    {
+        vector<string>tmp;
+        int valid = st.size() - len;
+        
+        for(int i = 0;i+valid<=st.size();i++)
+        {
+           int r = st.size() - (i+valid);
+           
+           string  x = string(i,'*') + st.substr(i,valid) + string(r,'*');
+           tmp.push_back(x);
+        }
+        
+        return tmp;
+    }
+    vector<int> movesToStamp(string st, string tar) {
+        
+        bool pos = 1;
+        vector<int>ans ,vis(tar.size(),0);
+        map<int,vector<string>>m;
+        
+        while(pos)
+        {
+          int len = 0;
+          pos = 0;
+    
+          while(len < st.size())
+          {
+            
+            vector<string>tmp;
+              
+            if(m.count(len))
+                tmp = m[len];
+              
+            else
+            {
+               tmp = create(st,len);
+               m[len] = tmp;
+            } 
+            len++;
+            
+            for(auto& x : tmp)
+            {
+                auto idx = tar.find(x);
+                
+                while(idx != string::npos)
+                {
+                    pos = 1;
+                    for(int i = idx;i<idx+x.size();i++)
+                    tar[i] = '*';
+                    ans.push_back(idx);
+                    
+                    idx = tar.find(x);
+                }
+            }
+          }
+        }
+        
+        for(auto& x : tar) if(x != '*') return {};
+        
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
