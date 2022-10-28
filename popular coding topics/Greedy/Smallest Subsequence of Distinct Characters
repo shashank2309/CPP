@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string smallestSubsequence(string str) {
+       unordered_map<char,int>m , v;
+       
+       for(auto&x : str)
+       {m[x]++; v[x] = 0;}
+        
+        string s =  "";
+        for(auto& x : str)
+        {
+            if(!s.size())
+            {s = s + x;  v[x] = 1;}
+            
+            else
+            {
+               if(!v[x])
+               {
+                  while( s.size()&& s.back() > x && m[s.back()])
+                  { v[s.back()] = 0; s.pop_back();}
+                 
+          
+                  s = s + x;
+                  v[x] = 1;
+               }
+            }
+            
+            m[x]--;
+        }
+        
+        return s ;
+    }
+};
