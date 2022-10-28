@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        map<int,int>m;
+        
+        for(auto& x: s) m[x]++;
+        int ans = 0 ,o = 0;
+        
+        for(auto& x : m)
+        {ans += x.second/2 * 2; o|= x.second&1;}
+        return ans + o;
+    }
+};
