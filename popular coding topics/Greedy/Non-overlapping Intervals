@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int eraseOverlapIntervals(vector<vector<int>>& arr) {
+        for(auto& x : arr)x[1]--;
+        sort(arr.begin(),arr.end(),[](vector<int>&a , vector<int>&b)
+             {
+                if(a[0] == b[0]) return a[1] < b[1];
+                 return a[0] < b[0];
+             });
+        
+     int ans = 0;
+     int end = -5 * 1e5 - 1;
+    
+     for(auto& x : arr)
+     {
+         if(end < x[0]) end = x[1];
+         else
+         {
+             end = min(end,x[1]);
+             ans++;
+         }
+     }
+        
+     return ans;
+        
+    }
+};
