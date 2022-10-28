@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool isPossible(vector<int>& nums) {
+      map<int,int> m , ans;
+        
+     for(auto& x : nums)
+         m[x]++;
+        
+     for(auto& x : nums)
+     {
+         m[x]--;
+         if(ans[x-1])
+         {
+             ans[x-1]--;
+             ans[x]++;
+         }
+         
+         else if(m[x+1] && m[x+2])
+         {
+             m[x+1]--;
+             m[x+2]--;
+             ans[x]++;
+         }
+         
+         else
+             return false;
+         
+     }
+        
+        return true;
+    }
+};
